@@ -333,7 +333,7 @@ resource "kubernetes_stateful_set" "kafka" {
           }
           env {
             name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-            value = "INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT"
+            value = "INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT,PLAINTEXT:PLAINTEXT"
           }
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
