@@ -70,7 +70,7 @@ resource "kubernetes_service" "kafka" {
       target_port = "kafka"
     }
     port {
-      name        = "broker"
+      name        = "broker-local"
       port        = 19092
       target_port = 19092
     }
@@ -91,7 +91,7 @@ resource "kubernetes_service" "kafka_headless" {
       port = 9092
     }
     port {
-      name = "broker"
+      name = "broker-local"
       port = 19092
     }
     selector   = { app = "${var.kafka_name}" }
