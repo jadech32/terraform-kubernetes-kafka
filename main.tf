@@ -69,6 +69,11 @@ resource "kubernetes_service" "kafka" {
       port        = 9092
       target_port = "kafka"
     }
+    port {
+      name        = "broker"
+      port        = 19092
+      target_port = 19092
+    }
     selector = { app = "${var.kafka_name}" }
   }
 }
@@ -84,6 +89,10 @@ resource "kubernetes_service" "kafka_headless" {
     port {
       name = "broker"
       port = 9092
+    }
+    port {
+      name = "broker"
+      port = 19092
     }
     selector   = { app = "${var.kafka_name}" }
     cluster_ip = "None"
