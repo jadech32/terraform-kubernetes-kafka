@@ -108,10 +108,10 @@ resource "kubernetes_stateful_set" "zookeeper" {
       spec {
         volume {
           name = "config"
-          config_map {
-            name         = "${var.kafka_name}-zookeeper"
-            default_mode = "0555"
-          }
+          # config_map {
+          #   name         = "${var.kafka_name}-zookeeper"
+          #   default_mode = "0555"
+          # }
         }
         volume {
           name = "data"
