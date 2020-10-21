@@ -275,6 +275,10 @@ resource "kubernetes_stateful_set" "kafka" {
             name           = "kafka"
             container_port = 9092
           }
+          port {
+            name           = "kafka-local"
+            container_port = 19092
+          }
           env {
             name = "POD_IP"
             value_from {
@@ -333,11 +337,11 @@ resource "kubernetes_stateful_set" "kafka" {
           }
           env {
             name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-            value = "PLAINTEXT:PLAINTEXT"
+            value = "PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT"
           }
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
-            value = "PLAINTEXT://${var.kafka_name}:9092"
+            value = "PLAINTEXT://${var.kafka_name}:9092,CONNECTIONS_FROM_HOST://localhost:19092"
           }
           env {
             name  = "KAFKA_LISTENERS"
