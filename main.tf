@@ -346,19 +346,19 @@ resource "kubernetes_stateful_set" "kafka" {
           }
           env {
             name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-            value = "PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT"
+            value = "INTERNAL:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT"
           }
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
-            value = "PLAINTEXT://${var.kafka_name}:9092,CONNECTIONS_FROM_HOST://localhost:19092"
+            value = "INTERNAL://${var.kafka_name}:9092,CONNECTIONS_FROM_HOST://localhost:19092"
           }
           env {
             name  = "KAFKA_LISTENERS"
-            value = "PLAINTEXT://0.0.0.0:9092,CONNECTIONS_FROM_HOST://localhost:19092"
+            value = "INTERNAL://0.0.0.0:9092,CONNECTIONS_FROM_HOST://localhost:19092"
           }
           env {
             name  = "KAFKA_INTER_BROKER_LISTENER_NAME"
-            value = "PLAINTEXT"
+            value = "INTERNAL"
           }
           env {
             name  = "KAFKA_LOG_DIRS"
