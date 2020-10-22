@@ -353,6 +353,10 @@ resource "kubernetes_stateful_set" "kafka" {
             value = "PLAINTEXT://${var.kafka_name}:9092,CONNECTIONS_FROM_HOST://localhost:19092"
           }
           env {
+            name  = "KAFKA_LISTENERS"
+            value = "PLAINTEXT://0.0.0.0:9092,CONNECTIONS_FROM_HOST://localhost:19092"
+          }
+          env {
             name  = "KAFKA_INTER_BROKER_LISTENER_NAME"
             value = "PLAINTEXT"
           }
