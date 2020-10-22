@@ -119,6 +119,7 @@ resource "kubernetes_stateful_set" "zookeeper" {
           name = "config"
           config_map {
             name         = "${var.kafka_name}-zookeeper"
+            # Read, Execute but cannot write.
             default_mode = "0555"
           }
         }
@@ -354,7 +355,7 @@ resource "kubernetes_stateful_set" "kafka" {
           }
           env {
             name  = "KAFKA_LISTENERS"
-            value = "INTERNAL://0.0.0.0:9092,CONNECTIONS_FROM_HOST://localhost:19092"
+            value = "INTERNAL://0.0.0.0:9092,CONNECTIONS_FROM_HOST://0.0.0.0:19092"
           }
           env {
             name  = "KAFKA_INTER_BROKER_LISTENER_NAME"
