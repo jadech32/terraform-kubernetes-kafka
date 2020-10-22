@@ -280,7 +280,7 @@ resource "kubernetes_stateful_set" "kafka" {
         container {
           name    = "kafka-broker"
           image   = "confluentinc/cp-kafka:${var.confluent_kafka_version}"
-          command = ["sh", "-exc", "unset KAFKA_PORT && \\\nexport KAFKA_BROKER_ID=$${POD_NAME##*-} && \\\nexport KAFKA_ADVERTISED_LISTENERS=INTERNAL://$${POD_IP}:9092,CONNECTIONS_FROM_HOST://localhost:19092 && \\\nexec /etc/confluent/docker/run\n"]
+          command = ["sh", "-exc", "unset KAFKA_PORT && \\\nexport KAFKA_BROKER_ID=$${POD_NAME##*-} && \\\nexport KAFKA_ADVERTISED_LISTENERS=INTERNAL_PLAINTEXT://$${POD_IP}:9092 && \\\nexec /etc/confluent/docker/run\n"]
           port {
             name           = "kafka"
             container_port = 9092
@@ -347,19 +347,19 @@ resource "kubernetes_stateful_set" "kafka" {
           }
           env {
             name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-            value = "INTERNAL:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT"
+            value = var.kafka_security_protocol_map
           }
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
-            value = "INTERNAL://${var.kafka_name}:9092,CONNECTIONS_FROM_HOST://localhost:19092"
+            value = var.kafka_advertised_listeners
           }
           env {
             name  = "KAFKA_LISTENERS"
-            value = "INTERNAL://0.0.0.0:9092,CONNECTIONS_FROM_HOST://0.0.0.0:19092"
+            value = var.kafka_listeners
           }
           env {
             name  = "KAFKA_INTER_BROKER_LISTENER_NAME"
-            value = "INTERNAL"
+            value = var.kafka_inter_broker_listener_name
           }
           env {
             name  = "KAFKA_LOG_DIRS"

@@ -11,6 +11,26 @@ variable "kafka_storage_size" {
   default = "1Gi"
 }
 
+variable "kafka_advertised_listeners" {
+  type = string
+  default = ""
+}
+
+variable "kafka_listeners" {
+  type = string
+  default = ""
+}
+
+variable "kafka_inter_broker_listener_name" {
+  type = string
+  default = ""
+}
+
+variable "kafka_security_protocol_map" {
+  type = string
+  default = ""
+}
+
 variable "kafka_storage_class_name" {
   type    = string
   default = "standard"
