@@ -279,7 +279,7 @@ resource "kubernetes_stateful_set" "kafka" {
         container {
           name    = "kafka-broker"
           image   = "confluentinc/cp-kafka:${var.confluent_kafka_version}"
-          command = ["sh", "-exc", "unset KAFKA_PORT && \\\nexport KAFKA_BROKER_ID=$${POD_NAME##*-} && \\\nexport KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://$${POD_IP}:9092,CONNECTIONS_FROM_HOST://localhost:19092 && \\\nexec /etc/confluent/docker/run\n"]
+          command = ["sh", "-exc", "unset KAFKA_PORT && \\\nexport KAFKA_BROKER_ID=$${POD_NAME##*-} && \\\nexport KAFKA_ADVERTISED_LISTENERS=INTERNAL://$${POD_IP}:9092,CONNECTIONS_FROM_HOST://localhost:19092 && \\\nexec /etc/confluent/docker/run\n"]
           port {
             name           = "kafka"
             container_port = 9092
